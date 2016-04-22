@@ -1,0 +1,5 @@
+[run]
+include =
+    pguard/*
+omit =
+    pguard/tests/*
