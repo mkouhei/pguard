@@ -2,7 +2,7 @@
 """Guard like Haskell for Python."""
 
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 def guard_cl(statement, condition=None):
