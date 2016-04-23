@@ -45,6 +45,12 @@ def guard(*guard_clauses):
     ... )
     >>> [s(i) for i in [-10, 3, 0, 1, -12.0, 2]]
     [-1, 1, 0, 1, -1, 1]
+    >>> s2 = lambda n: guard(
+    ... g(-1, n < 0),
+    ... g(0, n == 0),
+    ... )
+    >>> [s2(i) for i in [-10, 3, 0, 1, -12.0, 2]]
+    [-1, False, 0, False, -1, False]
 
     >>> def fibo(n):
     ...    if n < 0 : return -1
