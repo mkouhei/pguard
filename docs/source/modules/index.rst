@@ -4,9 +4,7 @@ References
 .. toctree::
    :maxdepth: 2
 
-.. automodule:: pguard.sample
+.. automodule:: pguard
    :members:
    :show-inheritance:
    :inherited-members:
-
-.. ##### ToDo: Rewrite this automodule section. ####

@@ -1,5 +1,4 @@
 [run]
 include =
-    pguard/*
+    pguard.py
 omit =
-    pguard/tests/*

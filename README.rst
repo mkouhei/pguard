@@ -2,9 +2,7 @@
  pguard
 ========
 
-TODO: Rewrite me. Append your package's long description.
-
-
+Guard like Haskell for Python.
 
 Requirements
 ============
@@ -14,7 +12,7 @@ Requirements
 Features
 ========
 
-* ToDo: Rewrite me.
+* guard with lambda
 
 Setup
 =====
@@ -28,13 +26,13 @@ Setup
 Usage
 =====
 
-ToDo: Rewrite me.
-
 ::
 
-  $ python
-  >>> import pguard
-  >>> pguard.sample.hello()
-  'hello'
-  >>>
-
+   >>> from pguard import guard
+   >>> from pguard import guard_cl as g
+   >>> (lambda n: guard(
+   ... g(-1, n < 0),
+   ... g(0, n == 0),
+   ... g(1)  ## otherwise
+   ... ))(0)
+   0
