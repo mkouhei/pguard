@@ -63,6 +63,19 @@ def guard(*guard_clauses):
     ... )
     >>> [f(i) for i in range(-1, 10)]
     [Exception('out of range',), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+    >>> b = lambda w, h: guard(
+    ... g('Very severely underweight', w / h ** 2 < 15.0),
+    ... g('Severely underweight', w / h ** 2 < 16.0),
+    ... g('Underweight', w / h ** 2 < 18.5),
+    ... g('Normal (healthy weight)', w / h ** 2 < 25.0),
+    ... g('Overweight', w / h ** 2 < 30.0),
+    ... g('Obese Class I (Moderately obese)', w / h ** 2 < 35.0),
+    ... g('Obese Class II (Severely obese)', w / h ** 2 < 40.0),
+    ... g('Obese Class III (Very severely obese)')
+    ... )
+    >>> b(67.3, 1.68)
+    'Normal (healthy weight)'
     """
     for _guard in guard_clauses:
         if _guard is not None and _guard is not False:
