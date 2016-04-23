@@ -5,6 +5,7 @@ import os
 import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
+from pguard import __version__
 
 class Tox(TestCommand):
     user_options = [('tox-args=', 'a', 'Arguments to pass to tox')]
@@ -69,7 +70,7 @@ with open('extras_requirement.txt', 'w') as _file:
     _file.write('\n'.join(extras_require.get('reST')))
 
 setup(name='pguard',
-      version='0.1.0',
+      version=__version__,
       description='Guard like Haskell for Python.',
       long_description=long_description,
       author='Kouhei Maeda',
