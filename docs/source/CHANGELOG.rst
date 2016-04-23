@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.1.3 (2016-04-23)
+------------------
+
+* Fixes README.
+* Adds check long-description to pre-commit hook.
+
 0.1.2 (2016-04-23)
 ------------------
 
