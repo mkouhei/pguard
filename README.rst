@@ -4,6 +4,19 @@
 
 Guard like Haskell for Python.
 
+Status
+======
+
+.. image:: https://secure.travis-ci.org/mkouhei/pguard.png?branch=master
+   :target: http://travis-ci.org/mkouhei/pguard
+.. image:: https://coveralls.io/repos/mkouhei/pguard/badge.png?branch=master
+   :target: https://coveralls.io/r/mkouhei/pguard?branch=master
+.. image:: https://img.shields.io/pypi/v/pguard.svg
+   :target: https://pypi.python.org/pypi/pguard
+.. image:: https://readthedocs.org/projects/pguard/badge/?version=latest
+   :target: https://readthedocs.org/projects/pguard/?badge=latest
+   :alt: Documentation Status
+
 Requirements
 ============
 
