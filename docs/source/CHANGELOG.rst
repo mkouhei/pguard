@@ -1,6 +1,11 @@
 ChangeLog
 =========
 
+0.2.0 (2016-04-27)
+------------------
+
+* Supports "function" and "method" as guard_cl statement argument.
+
 0.1.4 (2016-04-24)
 ------------------
 

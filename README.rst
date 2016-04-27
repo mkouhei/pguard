@@ -26,6 +26,7 @@ Features
 ========
 
 * guard with lambda
+* Enable to use function or method as ``guard_cl`` statement argument.
 
 Setup
 =====
@@ -36,8 +37,8 @@ Setup
   or
   (venv)$ pip install pguard
 
-Usage
-=====
+Simple usage
+============
 
 ::
 
