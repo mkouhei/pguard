@@ -34,6 +34,7 @@ def guard_cl(statement, condition=None, params=None):
 
     :param statement: expression statement.
     :param condition: condition statement.
+    :param tuple params: expression statement parameters.
 
     >>> (lambda n: (
     ... guard_cl(-1, n < 0),
