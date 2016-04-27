@@ -2,4 +2,6 @@
 ignore=setup.py,docs/source/conf.py
 
 [MESSAGES CONTROL]
-#disable=
+disable=
+    deprecated-method,
+    no-member

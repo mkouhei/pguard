@@ -1,11 +1,33 @@
 # -*- coding: utf-8 -*-
 """Guard like Haskell for Python."""
-
+import sys
+import inspect
 
 __version__ = '0.1.4'
 
 
-def guard_cl(statement, condition=None):
+def _has_args(func):
+    if sys.version_info < (3, 3):
+        return len(inspect.getargspec(func).args) > 0
+    else:
+        return len(inspect.signature(func).parameters) > 0
+
+
+def _evaluate(statement, params=None):
+    if inspect.isfunction(statement) or inspect.ismethod(statement):
+        if _has_args(statement):
+            if params is not None:
+                evaluation = statement(*params)
+            else:
+                raise Exception('Invalid parameters.')
+        else:
+            evaluation = statement()
+    else:
+        evaluation = statement
+    return evaluation
+
+
+def guard_cl(statement, condition=None, params=None):
     """guard clause.
 
     :return: any value or False.
@@ -18,9 +40,46 @@ def guard_cl(statement, condition=None):
     ... guard_cl(0, n == 0),
     ... guard_cl(1)))(0)
     (False, 0, 1)
+
+    >>> def foo(x):
+    ...     return x + 1
+
+    >>> (lambda n: (
+    ... guard_cl(foo, n == 0, (n,)),
+    ... guard_cl(foo, n == 1, (n,)),
+    ... guard_cl('out of range')
+    ... ))(0)
+    (1, False, 'out of range')
+
+    >>> [(lambda n: guard(
+    ... guard_cl(foo, n == 0, (n,)),
+    ... guard_cl(foo, n == 1, (n,)),
+    ... guard_cl('out of range')
+    ... ))(i) for i in range(0, 4)]
+    [1, 2, 'out of range', 'out of range']
+
+    >>> (lambda n: (guard_cl(foo, n == 2)))(2)
+    Traceback (most recent call last):
+    ...
+    Exception: Invalid parameters.
+
+    >>> def bar():
+    ...     return 'noop'
+
+    >>> (lambda n: (guard_cl(bar, n == 2)))(2)
+    'noop'
+
+    >>> def baz(x, y):
+    ...     return x + y
+
+    >>> (lambda i, j: (
+    ... guard_cl(baz, True, (i, j))
+    ... ))(10, 5)
+    15
     """
-    if condition or condition is None:
-        return statement
+    evaluation = _evaluate(condition, params)
+    if evaluation is not False or evaluation is None:
+        return _evaluate(statement, params)
     else:
         return False
 

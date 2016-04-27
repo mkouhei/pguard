@@ -7,6 +7,7 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 from pguard import __version__
 
+
 class Tox(TestCommand):
     user_options = [('tox-args=', 'a', 'Arguments to pass to tox')]
 
