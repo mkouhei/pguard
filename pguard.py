@@ -77,6 +77,19 @@ def guard_cl(statement, condition=None, params=None):
     ... guard_cl(baz, True, (i, j))
     ... ))(10, 5)
     15
+
+    >>> class Hoge(object):
+    ...    def hoge(self, a):
+    ...        return a * 2
+    ...
+    ...    def moge(self, a, b):
+    ...        return a + b * 2
+
+    >>> h = Hoge()
+    >>> (lambda n: guard_cl(h.hoge, n > 0, (n,)))(10)
+    20
+    >>> (lambda x, y: guard_cl(h.moge, x and y, (x, y)))(5, 10)
+    25
     """
     evaluation = _evaluate(condition, params)
     if evaluation is not False or evaluation is None:
