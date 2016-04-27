@@ -67,7 +67,7 @@ def guard_cl(statement, condition=None, params=None):
     >>> def bar():
     ...     return 'noop'
 
-    >>> (lambda n: (guard_cl(bar, n == 2)))(2)
+    >>> (lambda n: guard_cl(bar, n == 2))(2)
     'noop'
 
     >>> def baz(x, y):
