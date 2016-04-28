@@ -158,6 +158,17 @@ def guard(*guard_clauses):
     ... )
     >>> b(67.3, 1.68)
     'Normal (healthy weight)'
+
+    >>> def foo(x):
+    ...     return x * 2
+
+    >>> l = lambda n: guard(
+    ... g(foo, n == 0, (n,)),
+    ... g(foo, n == 1, (n + 1,)),
+    ... g(foo, params=(n + 2,))
+    ... )
+    >>> [l(i) for i in range(0, 4)]
+    [0, 4, 8, 10]
     """
     for _guard in guard_clauses:
         if _guard is not None and _guard is not False:
