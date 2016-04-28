@@ -57,9 +57,9 @@ def guard_cl(statement, condition=None, params=None):
     >>> (lambda n: (
     ... guard_cl(foo, n == 0, (n,)),
     ... guard_cl(foo, n == 1, (n,)),
-    ... guard_cl('out of range')
+    ... guard_cl(foo, params=(n + 10,))
     ... ))(0)
-    (1, False, 'out of range')
+    (1, False, 11)
 
     >>> [(lambda n: guard(
     ... guard_cl(foo, n == 0, (n,)),
