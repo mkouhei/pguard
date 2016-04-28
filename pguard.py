@@ -23,7 +23,7 @@ def _evaluate_with_params(statement, params):
     if params is not None:
         return statement(*params)
     else:
-        raise Exception('Invalid parameters.')
+        raise ValueError('Invalid parameters.')
 
 
 def _evaluate(statement, params=None):
@@ -71,7 +71,7 @@ def guard_cl(statement, condition=None, params=None):
     >>> (lambda n: (guard_cl(foo, n == 2)))(2)
     Traceback (most recent call last):
     ...
-    Exception: Invalid parameters.
+    ValueError: Invalid parameters.
 
     >>> def bar():
     ...     return 'noop'
