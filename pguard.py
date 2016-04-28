@@ -6,24 +6,33 @@ import inspect
 __version__ = '0.2.0'
 
 
-def _has_args(func):
+def _has_args(statement):
     if sys.version_info < (3, 3):
-        return len(inspect.getargspec(func).args) > 0
+        if inspect.isfunction(statement):
+            return len(inspect.getargspec(statement).args) > 0
+        elif inspect.ismethod(statement):
+            args = inspect.getargspec(statement).args
+            return len(args) > 1 and args[0] == 'self'
     else:
-        return len(inspect.signature(func).parameters) > 0
+        if inspect.isfunction(statement) or inspect.ismethod(statement):
+            return inspect.signature(statement).parameters
+    return
+
+
+def _evaluate_with_params(statement, params):
+    if params is not None:
+        return statement(*params)
+    else:
+        raise Exception('Invalid parameters.')
 
 
 def _evaluate(statement, params=None):
-    if inspect.isfunction(statement) or inspect.ismethod(statement):
-        if _has_args(statement):
-            if params is not None:
-                evaluation = statement(*params)
-            else:
-                raise Exception('Invalid parameters.')
-        else:
-            evaluation = statement()
-    else:
+    if _has_args(statement):
+        evaluation = _evaluate_with_params(statement, params)
+    elif _has_args(statement) is None:
         evaluation = statement
+    else:
+        evaluation = statement()
     return evaluation
 
 
