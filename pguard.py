@@ -39,7 +39,7 @@ def _evaluate(statement, params=None):
 def guard_cl(statement, condition=None, params=None):
     """guard clause.
 
-    :return: any value or False.
+    :return: (statement, params) or False
 
     :param statement: expression statement.
     :param condition: condition statement.
@@ -49,60 +49,11 @@ def guard_cl(statement, condition=None, params=None):
     ... guard_cl(-1, n < 0),
     ... guard_cl(0, n == 0),
     ... guard_cl(1)))(0)
-    (False, 0, 1)
-
-    >>> def foo(x):
-    ...     return x + 1
-
-    >>> (lambda n: (
-    ... guard_cl(foo, n == 0, (n,)),
-    ... guard_cl(foo, n == 1, (n,)),
-    ... guard_cl(foo, params=(n + 10,))
-    ... ))(0)
-    (1, False, 11)
-
-    >>> [(lambda n: guard(
-    ... guard_cl(foo, n == 0, (n,)),
-    ... guard_cl(foo, n == 1, (n,)),
-    ... guard_cl('out of range')
-    ... ))(i) for i in range(0, 4)]
-    [1, 2, 'out of range', 'out of range']
-
-    >>> (lambda n: (guard_cl(foo, n == 2)))(2)
-    Traceback (most recent call last):
-    ...
-    ValueError: Invalid parameters.
-
-    >>> def bar():
-    ...     return 'noop'
-
-    >>> (lambda: guard_cl(bar))()
-    'noop'
-
-    >>> def baz(x, y):
-    ...     return x + y
-
-    >>> (lambda i, j: (
-    ... guard_cl(baz, True, (i, j))
-    ... ))(10, 5)
-    15
-
-    >>> class Hoge(object):
-    ...    def hoge(self, a):
-    ...        return a * 2
-    ...
-    ...    def moge(self, a, b):
-    ...        return a + b * 2
-
-    >>> h = Hoge()
-    >>> (lambda n: guard_cl(h.hoge, n > 0, (n,)))(10)
-    20
-    >>> (lambda x, y: guard_cl(h.moge, x and y, (x, y)))(5, 10)
-    25
+    (False, (0, None), (1, None))
     """
     evaluation = _evaluate(condition, params)
     if evaluation is not False or evaluation is None:
-        return _evaluate(statement, params)
+        return statement, params
     else:
         return False
 
@@ -162,15 +113,37 @@ def guard(*guard_clauses):
     >>> def foo(x):
     ...     return x * 2
 
+    >>> def bar():
+    ...     return 'negative'
+
     >>> l = lambda n: guard(
+    ... g(bar, n < 0),
     ... g(foo, n == 0, (n,)),
     ... g(foo, n == 1, (n + 1,)),
     ... g(foo, params=(n + 2,))
     ... )
-    >>> [l(i) for i in range(0, 4)]
-    [0, 4, 8, 10]
+    >>> [l(i) for i in range(-1, 4)]
+    ['negative', 0, 4, 8, 10]
+
+    >>> guard(g(foo))
+    Traceback (most recent call last):
+    ...
+    ValueError: Invalid parameters.
+
+
+    >>> class Hoge(object):
+    ...     def hoge(self, a):
+    ...         return a * 2
+    ...     def moge(self, a, b):
+    ...         return a + b * 2
+
+    >>> h = Hoge()
+    >>> (lambda n: guard(
+    ... g(h.hoge, n > 0, (n,))
+    ... ))(10)
+    20
     """
     for _guard in guard_clauses:
         if _guard is not None and _guard is not False:
-            return _guard
+            return _evaluate(_guard[0], _guard[1])
     return False
