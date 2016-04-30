@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.3.0 (2016-04-30)
+------------------
+
+* Fixes lazy evaluation.
+* Changes guard_cl() respond values.
+
 0.2.1 (2016-04-29)
 ------------------
 
