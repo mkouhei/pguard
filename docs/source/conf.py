@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pguard'
-copyright = u'2016, Kouhei Maeda'
+copyright = u'2016-2017, Kouhei Maeda'
 author = u'Kouhei Maeda'
 
 # The version info for the project you're documenting, acts as replacement for
