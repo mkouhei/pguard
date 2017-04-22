@@ -7,16 +7,18 @@ __version__ = '0.3.0'
 
 
 def _has_args(statement):
+    result = None
     if sys.version_info < (3, 3):
         if inspect.isfunction(statement):
-            return len(inspect.getargspec(statement).args) > 0
+            length = len(inspect.getargspec(statement).args)
+            result = length > 0
         elif inspect.ismethod(statement):
             args = inspect.getargspec(statement).args
-            return len(args) > 1 and args[0] == 'self'
+            result = len(args) > 1 and args[0] == 'self'
     else:
         if inspect.isfunction(statement) or inspect.ismethod(statement):
-            return inspect.signature(statement).parameters
-    return
+            result = inspect.signature(statement).parameters
+    return result
 
 
 def _evaluate_with_params(statement, params):
@@ -52,10 +54,10 @@ def guard_cl(statement, condition=None, params=None):
     (False, (0, None), (1, None))
     """
     evaluation = _evaluate(condition, params)
+    result = False
     if evaluation is not False or evaluation is None:
-        return statement, params
-    else:
-        return False
+        result = statement, params
+    return result
 
 
 def guard(*guard_clauses):
