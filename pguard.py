@@ -24,8 +24,7 @@ def _has_args(statement):
 def _evaluate_with_params(statement, params):
     if params is not None:
         return statement(*params)
-    else:
-        raise ValueError('Invalid parameters.')
+    raise ValueError('Invalid parameters.')
 
 
 def _evaluate(statement, params=None):
@@ -39,7 +38,7 @@ def _evaluate(statement, params=None):
 
 
 def guard_cl(statement, condition=None, params=None):
-    """guard clause.
+    """Guard clause.
 
     :return: (statement, params) or False
 
@@ -61,7 +60,7 @@ def guard_cl(statement, condition=None, params=None):
 
 
 def guard(*guard_clauses):
-    """guard function.
+    """Guard function.
 
     :param tuple *guard_clauses: guard clauses.
 
