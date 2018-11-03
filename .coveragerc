@@ -2,3 +2,4 @@
 include =
     pguard.py
 omit =
+    .tox/*,setup.py
