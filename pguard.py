@@ -3,7 +3,7 @@
 import sys
 import inspect
 
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 
 def _has_args(statement):
@@ -97,6 +97,8 @@ def guard(*guard_clauses):
     ... )
     >>> [f(i) for i in range(-1, 10)]
     [Exception('out of range',), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    >>> # Python3.7
+    >>> # [Exception('out of range'), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
     >>> b = lambda w, h: guard(
     ... g('Very severely underweight', w / h ** 2 < 15.0),
