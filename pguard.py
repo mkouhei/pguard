@@ -96,9 +96,9 @@ def guard(*guard_clauses):
     ... g(fibo(n - 1) + fibo(n - 2))
     ... )
     >>> [f(i) for i in range(-1, 10)]
-    [Exception('out of range',), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-    >>> # Python3.7
-    >>> # [Exception('out of range'), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    [Exception('out of range'), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    >>> # Python3.6, PyPy7.0
+    >>> # [Exception('out of range',), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
     >>> b = lambda w, h: guard(
     ... g('Very severely underweight', w / h ** 2 < 15.0),
